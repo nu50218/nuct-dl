@@ -4,6 +4,7 @@ import (
 	"context"
 	"flag"
 	"log"
+	"math"
 	"runtime"
 	"sync"
 
@@ -12,11 +13,12 @@ import (
 )
 
 var (
-	uri  = flag.String("uri", "https://ct.nagoya-u.ac.jp/dav/", "base uri")
-	user = flag.String("user", "", "username")
-	pass = flag.String("pass", "", "password")
-	id   = flag.String("id", "", "siteid")
-	out  = flag.String("out", "", "output directory")
+	uri        = flag.String("uri", "https://ct.nagoya-u.ac.jp/dav/", "base uri")
+	user       = flag.String("user", "", "username")
+	pass       = flag.String("pass", "", "password")
+	id         = flag.String("id", "", "siteid")
+	out        = flag.String("out", "", "output directory")
+	lastUpdate = flag.Duration("last_update", math.MaxInt64, "last_update")
 )
 
 func init() {

@@ -6,14 +6,18 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/studio-b12/gowebdav"
 )
 
 func download(ctx context.Context, c *gowebdav.Client, path string) error {
-	_, err := c.Stat(path)
+	fileInfo, err := c.Stat(path)
 	if err != nil {
 		return err
+	}
+	if time.Since(fileInfo.ModTime()) > *lastUpdate {
+		return nil
 	}
 
 	src, err := c.ReadStream(path)
